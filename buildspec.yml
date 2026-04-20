@@ -4,15 +4,22 @@ phases:
   install:
     runtime-versions:
       java: corretto8
+    commands:
+      - echo "Installing Ant..."
+      - yum install -y ant
+
   pre_build:
     commands:
-      - env
+      - echo "Running tests..."
+      - cd java-project
       - ant -f test.xml -v
+
   build:
     commands:
+      - echo "Building JAR..."
       - ant -f build.xml -v
 
 artifacts:
   files:
-    - dist/rectangle.jar
+    - java-project/dist/rectangle.jar
   name: rectangle-$(date +%y%m%d%H%M).zip
