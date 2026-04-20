@@ -3,13 +3,16 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto17
-
+      java: corretto8
+  pre_build:
+    commands:
+      - env
+      - ant -f test.xml -v
   build:
     commands:
-      - echo "Building Java project..."
-      - javac HelloWorld.java
+      - ant -f build.xml -v
 
 artifacts:
   files:
-    - '**/*'
+    - dist/rectangle.jar
+  name: rectangle-$(date +%y%m%d%H%M).zip
